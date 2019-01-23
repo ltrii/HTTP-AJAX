@@ -2,6 +2,33 @@ import React from 'react'
 import styled from 'styled-components';
 import axios from 'axios';
 
+const AddFriendHold = styled.div`
+        display: flex;
+        flex-direction: column;
+        padding-bottom: 20px;
+    `
+
+const AddFriendForm = styled.form`
+        display: flex;
+        justify-content: space-evenly;
+
+        input {
+            border: none;
+            background-color: rgb(233,233,233);
+            padding: 5px;
+            border-radius: 3px;
+        }
+
+        button {
+            border: none;
+
+            &:hover {
+                background-color: darkred;
+                color: white;
+            }
+        }
+    `;
+
 class AddFriend extends React.Component {
     constructor(props){
         super(props);
@@ -33,8 +60,8 @@ class AddFriend extends React.Component {
 
     render(){
   return (
-    <div>
-      <form onSubmit={(e) => {
+    <AddFriendHold>
+      <AddFriendForm onSubmit={(e) => {
           e.preventDefault();
           this.addFriend();
       }
@@ -43,8 +70,8 @@ class AddFriend extends React.Component {
           <input type="text" onChange={this.onChange} placeholder="age" value={this.state.ageInput} name="ageInput" />
           <input type="email" onChange={this.onChange} placeholder="email" value={this.state.emailInput} name="emailInput" />
           <button type="submit">add friend</button>
-      </form>
-    </div>
+      </AddFriendForm>
+    </AddFriendHold>
   )
     }
 }

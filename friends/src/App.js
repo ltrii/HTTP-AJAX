@@ -1,6 +1,20 @@
 import React, { Component } from 'react'
 import axios from 'axios';
+import styled from 'styled-components';
 import AddFriend from './components/AddFriend';
+
+const AppHold = styled.div`
+    box-sizing: border-box;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    width: 75%;
+    margin: auto;
+  `;
+
+const FriendDiv = styled.div`
+    border-top: 1px solid rgb(244,244,244);
+  `
 
 class App extends Component {
   state = {
@@ -26,18 +40,18 @@ getAxios = () => {
   render() {
 
     var mapFriends = this.state.friends.map((friend, i) => (
-      <div key={i}>
+      <FriendDiv key={i}>
         <p>Name: {friend.name}</p>
         <p>Email: {friend.email}</p>
         <p>Age: {friend.age}</p>
-      </div>
+      </FriendDiv>
     ))
 
     return (
-      <div>
+      <AppHold>
         <AddFriend getAxios={this.getAxios} friends={this.state.friends} />
         {mapFriends}
-      </div>
+      </AppHold>
     )
   }
 }
