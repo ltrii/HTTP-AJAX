@@ -17,6 +17,12 @@ componentDidMount(){
     .catch(err => console.log(err));
 }
 
+getAxios = () => {
+  axios.get('http://localhost:5000/friends')
+    .then(res => this.setState({friends: res.data}), () => console.log(this.state.friends))
+    .catch(err => console.log(err.response));
+}
+
   render() {
 
     var mapFriends = this.state.friends.map((friend, i) => (
@@ -29,7 +35,7 @@ componentDidMount(){
 
     return (
       <div>
-        <AddFriend />
+        <AddFriend getAxios={this.getAxios} friends={this.state.friends} />
         {mapFriends}
       </div>
     )
