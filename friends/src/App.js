@@ -14,12 +14,19 @@ const AppHold = styled.div`
 
 const FriendDiv = styled.div`
     border-top: 1px solid rgb(244,244,244);
+    padding: 5px;
+    &:hover {
+            background-color: rgb(244,244,244);
+        }
   `
 
 class App extends Component {
-  state = {
-    friends: []
-}
+  constructor(props){
+    super(props);
+    this.state = {
+      friends: []
+    }
+  }
 
 
 componentDidMount(){
@@ -37,13 +44,24 @@ getAxios = () => {
     .catch(err => console.log(err.response));
 }
 
+friendClick = () => {
+  
+}
+
+friendDelete = (e) => {
+  axios.delete(`http://localhost:5000/friends/${this.friend}`)
+            .then(() => this.props.getAxios())
+            .catch(err => console.log(err.response));
+}
+
   render() {
 
     var mapFriends = this.state.friends.map((friend, i) => (
-      <FriendDiv key={i}>
+      <FriendDiv key={friend.id}>
         <p>Name: {friend.name}</p>
         <p>Email: {friend.email}</p>
         <p>Age: {friend.age}</p>
+        <button onClick={this.friendDelete}>X</button>
       </FriendDiv>
     ))
 
