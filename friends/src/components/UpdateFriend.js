@@ -11,6 +11,7 @@ const UpdateFriendHold = styled.div`
 const UpdateFriendForm = styled.form`
         display: flex;
         justify-content: space-evenly;
+        padding-top: 20px;
 
         input {
             border: none;
@@ -29,13 +30,23 @@ const UpdateFriendForm = styled.form`
         }
     `;
 
+const clearedItem = {
+    description: '',
+    imageUrl: '',
+    name: '',
+    price: '',
+    shipping: ''
+  };
+
 class UpdateFriend extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            nameHold: '',
-            emailHold: '',
-            ageHold: ''
+            nameHold: props.name,
+            emailHold: props.email,
+            ageHold: props.age,
+            idHold: props.id,
+            cit: clearedItem
         }
     }
 
@@ -45,12 +56,12 @@ class UpdateFriend extends React.Component {
     
     UpdateFriend = () => {
         let body = {
-            name: this.state.nameInput,
-            email: this.state.emailInput,
-            age: Number(this.state.ageInput)
+            name: this.state.nameHold,
+            email: this.state.emailHold,
+            age: Number(this.state.ageHold)
         }
-        axios.post('http://localhost:5000/friends', body)
-            .then(() => this.setState({nameInput: '', emailInput: '', ageInput: ''}))
+        axios.put('http://localhost:5000/friends/', body)
+            .then(() => this.setState({nameHold: '', emailHold: '', ageHold: ''}))
             .then(() => this.props.getAxios())
             .catch(err => console.log(err.response));
     }
@@ -63,10 +74,10 @@ class UpdateFriend extends React.Component {
           this.UpdateFriend();
       }
       }>
-          <input type="text" onChange={this.onChange} placeholder="name" value={this.state.nameInput} name="nameInput" />
-          <input type="text" onChange={this.onChange} placeholder="age" value={this.state.ageInput} name="ageInput" />
-          <input type="email" onChange={this.onChange} placeholder="email" value={this.state.emailInput} name="emailInput" />
-          <button type="submit">add friend</button>
+          <input type="text" onChange={this.onChange} placeholder={this.props.name} value={this.state.nameInput} name="nameInput" />
+          <input type="text" onChange={this.onChange} placeholder={this.props.age} value={this.state.ageInput} name="ageInput" />
+          <input type="email" onChange={this.onChange} placeholder={this.props.email} value={this.state.emailInput} name="emailInput" />
+          <button type="submit">edit friend</button>
       </UpdateFriendForm>
     </UpdateFriendHold>
   )

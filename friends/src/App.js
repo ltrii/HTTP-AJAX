@@ -49,12 +49,6 @@ friendEdit = () => {
   
 }
 
-friendDelete = (e) => {
-  axios.delete(`http://localhost:5000/friends/${this.state.id}`)
-            .then(() => this.props.getAxios())
-            .catch(err => console.log(err.response));
-}
-
   render() {
 
     return (
