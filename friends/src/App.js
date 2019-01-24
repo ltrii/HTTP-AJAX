@@ -2,6 +2,13 @@ import React, { Component } from 'react'
 import axios from 'axios';
 import styled from 'styled-components';
 import AddFriend from './components/AddFriend';
+import Friends from './components/Friends';
+import {
+  BrowserRouter as Router,
+  Route,
+  NavLink,
+  withRouter
+} from 'react-router-dom';
 
 const AppHold = styled.div`
     box-sizing: border-box;
@@ -12,19 +19,13 @@ const AppHold = styled.div`
     margin: auto;
   `;
 
-const FriendDiv = styled.div`
-    border-top: 1px solid rgb(244,244,244);
-    padding: 5px;
-    &:hover {
-            background-color: rgb(244,244,244);
-        }
-  `
 
 class App extends Component {
   constructor(props){
     super(props);
     this.state = {
-      friends: []
+      friends: [],
+      id: 0
     }
   }
 
@@ -44,31 +45,22 @@ getAxios = () => {
     .catch(err => console.log(err.response));
 }
 
-friendClick = () => {
+friendEdit = () => {
   
 }
 
 friendDelete = (e) => {
-  axios.delete(`http://localhost:5000/friends/${this.friend.id}`)
+  axios.delete(`http://localhost:5000/friends/${this.state.id}`)
             .then(() => this.props.getAxios())
             .catch(err => console.log(err.response));
 }
 
   render() {
 
-    var mapFriends = this.state.friends.map((friend, i) => (
-      <FriendDiv key={friend.id}>
-        <p>Name: {friend.name}</p>
-        <p>Email: {friend.email}</p>
-        <p>Age: {friend.age}</p>
-        <button onClick={this.friendDelete}>X</button>
-      </FriendDiv>
-    ))
-
     return (
       <AppHold>
         <AddFriend getAxios={this.getAxios} friends={this.state.friends} />
-        {mapFriends}
+        <Friends friends={this.state.friends} />
       </AppHold>
     )
   }
