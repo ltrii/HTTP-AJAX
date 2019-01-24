@@ -2,15 +2,19 @@ import React from 'react'
 import styled from 'styled-components';
 import axios from 'axios';
 
-const UpdateFriendHold = styled.div`
+const AddFriendHold = styled.div`
         display: flex;
         flex-direction: column;
         padding-bottom: 20px;
     `
 
-const UpdateFriendForm = styled.form`
+const AddFriendForm = styled.form`
         display: flex;
         justify-content: space-evenly;
+
+        &:hover {
+            background-color: rgb(244,244,244);
+        }
 
         input {
             border: none;
@@ -29,13 +33,13 @@ const UpdateFriendForm = styled.form`
         }
     `;
 
-class UpdateFriend extends React.Component {
+class AddFriend extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            nameHold: '',
-            emailHold: '',
-            ageHold: ''
+            nameInput: '',
+            emailInput: '',
+            ageInput: '',
         }
     }
 
@@ -43,11 +47,11 @@ class UpdateFriend extends React.Component {
         this.setState({[e.target.name]: e.target.value});
     }
     
-    UpdateFriend = () => {
+    addFriend = () => {
         let body = {
-            name: this.state.nameHold,
-            email: this.state.emailHold,
-            age: Number(this.state.ageHold)
+            name: this.state.nameInput,
+            email: this.state.emailInput,
+            age: Number(this.state.ageInput)
         }
         axios.post('http://localhost:5000/friends', body)
             .then(() => this.setState({nameInput: '', emailInput: '', ageInput: ''}))
@@ -57,20 +61,20 @@ class UpdateFriend extends React.Component {
 
     render(){
   return (
-    <UpdateFriendHold>
-      <UpdateFriendForm onSubmit={(e) => {
+    <AddFriendHold>
+      <AddFriendForm onSubmit={(e) => {
           e.preventDefault();
-          this.UpdateFriend();
+          this.addFriend();
       }
       }>
-          <input type="text" onChange={this.onChange} placeholder="name" value={this.state.nameHold} name="nameHold" />
-          <input type="text" onChange={this.onChange} placeholder="age" value={this.state.ageHold} name="ageHold" />
-          <input type="email" onChange={this.onChange} placeholder="email" value={this.state.emailHold} name="emailHold" />
+          <input type="text" onChange={this.onChange} placeholder="name" value={this.state.nameInput} name="nameInput" />
+          <input type="text" onChange={this.onChange} placeholder="age" value={this.state.ageInput} name="ageInput" />
+          <input type="email" onChange={this.onChange} placeholder="email" value={this.state.emailInput} name="emailInput" />
           <button type="submit">add friend</button>
-      </UpdateFriendForm>
-    </UpdateFriendHold>
+      </AddFriendForm>
+    </AddFriendHold>
   )
     }
 }
 
-export default UpdateFriend;
+export default AddFriend;

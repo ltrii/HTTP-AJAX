@@ -33,9 +33,6 @@ class UpdateFriend extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            nameInput: '',
-            emailInput: '',
-            ageInput: '',
             nameHold: '',
             emailHold: '',
             ageHold: ''

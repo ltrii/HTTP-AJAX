@@ -49,7 +49,7 @@ friendClick = () => {
 }
 
 friendDelete = (e) => {
-  axios.delete(`http://localhost:5000/friends/${this.friend}`)
+  axios.delete(`http://localhost:5000/friends/${this.friend.id}`)
             .then(() => this.props.getAxios())
             .catch(err => console.log(err.response));
 }
