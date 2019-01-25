@@ -63,6 +63,7 @@ function friendDelete(e) {
                 age={age}
                 />} 
             />
+            
           
         </FriendDiv>
       )

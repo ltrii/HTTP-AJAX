@@ -5,7 +5,7 @@ function Friends(props) {
   return (
     <div>
       {props.friends.map((f) =>{
-          return <Friend friend={f} />
+          return <Friend friend={f} id={f.id} />
       })}
     </div>
   )
