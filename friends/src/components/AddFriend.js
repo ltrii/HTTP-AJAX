@@ -51,13 +51,14 @@ class AddFriend extends React.Component {
             age: Number(this.state.ageInput),
             id: this.state.id
         }
-        axios.post('http://localhost:5000/friends', body)
+        axios.post('http://localhost:5000/friends/', body)
             .then(() => this.setState({nameInput: '', emailInput: '', ageInput: ''}))
             .then(() => this.props.getAxios())
             .catch(err => console.log(err.response));
     }
 
     render(){
+        console.log(this.props.friends)
   return (
     <AddFriendHold>
       <AddFriendForm onSubmit={(e) => {

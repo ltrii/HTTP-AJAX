@@ -36,8 +36,8 @@ function Friend(props) {
     const id = `${props.friend.id}`;
 
 function friendDelete(e) {
-        axios.delete(`http://localhost:5000/friends/${id}`)
-                  .then(() => this.props.getAxios())
+        axios.delete(`http://localhost:5000/friends/${props.friend.id}`)
+                  .then((res) => console.log(res))
                   .catch(err => console.log(err.response));
       }
 
@@ -47,9 +47,9 @@ function friendDelete(e) {
           <p>Email: {props.friend.email}</p>
           <p>Age: {props.friend.age}</p>
           <div className="buttonhold">
-              <button onClick={friendDelete()}>X</button>
+              <button onClick={friendDelete}>X</button>
               <NavLink exact to={`/edit/${props.friend.id}`} >
-                  <button>edit</button>
+                <button>edit</button>
               </NavLink>
           </div>
           <Route 

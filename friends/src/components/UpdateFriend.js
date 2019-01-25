@@ -54,16 +54,18 @@ class UpdateFriend extends React.Component {
         this.setState({[e.target.name]: e.target.value});
     }
     
-    UpdateFriend = () => {
+    UpdateFriendFun = () => {
         let body = {
             name: this.state.nameHold,
             email: this.state.emailHold,
             age: Number(this.state.ageHold)
         }
-        axios.put('http://localhost:5000/friends/', body)
-            .then(() => this.setState({nameHold: '', emailHold: '', ageHold: ''}))
-            .then(() => this.props.getAxios())
-            .catch(err => console.log(err.response));
+        axios.put(`http://localhost:5000/friends/${this.state.id}`, body)
+        .then((res) => {
+           console.log(res);
+           this.setState({nameHold: '', emailHold: '', ageHold: ''})
+         })
+        .catch(err => console.log(err.response));
     }
 
     render(){
@@ -71,13 +73,13 @@ class UpdateFriend extends React.Component {
     <UpdateFriendHold>
       <UpdateFriendForm onSubmit={(e) => {
           e.preventDefault();
-          this.UpdateFriend();
+          this.UpdateFriendFun();
       }
       }>
           <input type="text" onChange={this.onChange} placeholder={this.props.name} value={this.state.nameInput} name="nameInput" />
           <input type="text" onChange={this.onChange} placeholder={this.props.age} value={this.state.ageInput} name="ageInput" />
           <input type="email" onChange={this.onChange} placeholder={this.props.email} value={this.state.emailInput} name="emailInput" />
-          <button type="submit">edit friend</button>
+          <button onClick={this.UpdateFriendFun} type="submit">edit friend</button>
       </UpdateFriendForm>
     </UpdateFriendHold>
   )
